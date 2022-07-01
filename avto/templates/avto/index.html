@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <title>Автотранспорт</title>
+</head>
+<body>
+<div class="d-flex align-items-center text-white-50 bg-primary box-shadow mb-5">
+    <img class="mr-3" src="" alt="" width="48" height="48">
+    <div class="lh-100">
+        <h6 class="mb-0 text-white lh-100">Автотранспорт</h6>
+    </div>
+</div>
+
+
+<div class="container d-flex">
+
+
+    <table class="table table-hover table-bordered border-dark">
+        <thead>
+        <tr class="table-primary border-dark">
+            <th scope="col">Гос номер</th>
+            <th scope="col">Марка</th>
+            <th scope="col">Модель</th>
+            <th scope="col">Цвет</th>
+            <th scope="col">Зона</th>
+            <th scope="col">Доступ</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for car in object_list %}
+        <tr>
+            <th>{{ car.car_number }}</th>
+            <td>{{ car.car_mark }}</td>
+            <td>{{ car.car_models }}</td>
+            <td>{{ car.car_color }}</td>
+            <td>{{ car.zone }}</td>
+            <td>{{ car.type }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p>ABJ</p>
+</div>
+
+
+</body>
+</html>
