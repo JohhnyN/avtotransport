@@ -25,11 +25,11 @@ class CarModels(models.Model):
         verbose_name_plural = 'Модели автомобилей'
 
 
-class Сhange(models.Model):
-    change = models.CharField(max_length=20, verbose_name='Смена')
+class WorkingShift(models.Model):
+    working_shift = models.CharField(max_length=20, verbose_name='Смена')
 
     def __str__(self):
-        return self.change
+        return self.working_shift
 
     class Meta:
         verbose_name = 'Смена'
@@ -72,10 +72,10 @@ class Organization(models.Model):
 
 
 class Employees(models.Model):
-    employees = models.CharField(max_length=255, verbose_name='Сотрудники')
+    employees = models.CharField(max_length=255, verbose_name='Сотрудник')
     organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация')
     position = models.CharField(max_length=255, verbose_name='Должность сотрудника')
-    сontact_details = models.CharField(max_length=255, verbose_name='Контактные данные')
+    details = models.CharField(max_length=255, verbose_name='Контактные данные')
 
     def __str__(self):
         return self.employees
@@ -85,21 +85,22 @@ class Employees(models.Model):
         verbose_name_plural = 'Сотрудники'
 
 
-class Сars(models.Model):
+class Automobile(models.Model):
     car_number = models.CharField(max_length=10, unique=True, verbose_name='№ автомобиля')
     car_mark = models.ForeignKey('CarMark', on_delete=models.PROTECT, verbose_name='Марка автомобиля')
     car_models = models.ForeignKey('CarModels', on_delete=models.PROTECT, verbose_name='Модель автомобиля')
     car_color = models.CharField(max_length=15, verbose_name='Цвет автомобиля')
     fio = models.CharField(max_length=255, verbose_name='ФИО владельца')
-    organization = models.CharField(max_length=255, verbose_name='Организация владельца')
-    position = models.CharField(max_length=255, verbose_name='Должность владельца')
-    сontact_details = models.CharField(max_length=255, verbose_name='Контактные данные')
-    change = models.ForeignKey('Сhange', on_delete=models.PROTECT, verbose_name='Смена')
+    organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация')
+    position = models.CharField(max_length=255, verbose_name='Должность владельца', null=True)
+    details = models.CharField(max_length=255, verbose_name='Контактные данные')
+    working_shift = models.ForeignKey('WorkingShift', on_delete=models.PROTECT, verbose_name='Смена')
     zone = models.ForeignKey('Zone', on_delete=models.PROTECT, verbose_name='Зона')
     type = models.ForeignKey('Type', on_delete=models.PROTECT, verbose_name='Тип')
-    date = models.DateTimeField(verbose_name='Срок')
+    limitation = models.DateTimeField(verbose_name='Срок')
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     author = models.ForeignKey('auth.User', on_delete=models.SET_DEFAULT, default='auth.User', verbose_name='Пользователь')
+    employees = models.ForeignKey('employees', on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник')
     allowed = models.BooleanField(default=True, verbose_name='Разрешено')
 
     def __str__(self):
@@ -109,6 +110,4 @@ class Сars(models.Model):
         verbose_name = 'Автомобиль'
         verbose_name_plural = 'Автомобили'
         ordering = ['car_number']
-
-
 

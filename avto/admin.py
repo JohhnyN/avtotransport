@@ -13,10 +13,10 @@ class CarModelsAdmin(admin.ModelAdmin):
     list_display_links = ('car_models', 'car_mark')
 
 
-class СhangeAdmin(admin.ModelAdmin):
-    list_display = ('change',)
-    list_display_links = ('change',)
-    search_fields = ('change',)
+class WorkingShiftAdmin(admin.ModelAdmin):
+    list_display = ('working_shift',)
+    list_display_links = ('working_shift',)
+    search_fields = ('working_shift',)
 
 
 class ZoneAdmin(admin.ModelAdmin):
@@ -38,13 +38,13 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 
 class EmployeesAdmin(admin.ModelAdmin):
-    list_display = ('employees', 'organization', 'position', 'сontact_details')
+    list_display = ('employees', 'organization', 'position', 'details')
     list_display_links = ('organization',)
     search_fields = ('organization',)
 
 
-class CarsAdmin(admin.ModelAdmin):
-    list_display = ('car_number', 'car_mark', 'car_models', 'fio', 'organization', 'change', 'zone', 'type', 'date', 'author', 'allowed')
+class AutomobileAdmin(admin.ModelAdmin):
+    list_display = ('car_number', 'car_mark', 'car_models', 'fio', 'organization', 'working_shift', 'zone', 'type', 'limitation', 'author', 'allowed')
     list_display_links = ('car_number',)
     list_editable = ('allowed',)
     search_fields = ('car_number', 'fio')
@@ -62,9 +62,9 @@ class CarsAdmin(admin.ModelAdmin):
 
 admin.site.register(CarMark, CarMarkAdmin)
 admin.site.register(CarModels, CarModelsAdmin)
-admin.site.register(Сhange, СhangeAdmin)
+admin.site.register(WorkingShift, WorkingShiftAdmin)
 admin.site.register(Zone, ZoneAdmin)
 admin.site.register(Type, TypeAdmin)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Employees, EmployeesAdmin)
-admin.site.register(Сars, CarsAdmin)
+admin.site.register(Automobile, AutomobileAdmin)
