@@ -11,11 +11,12 @@ class CarMark(models.Model):
     class Meta:
         verbose_name = 'Марка автомобиля'
         verbose_name_plural = 'Марки автомобилей'
+        ordering = ['car_mark']
 
 
 class CarModels(models.Model):
+    car_mark = models.ForeignKey('CarMark', on_delete=models.PROTECT, verbose_name='Марка автомобиля', related_name='car_models',)
     car_models = models.CharField(max_length=40, verbose_name='модель автомобиля')
-    car_mark = models.ForeignKey('CarMark', on_delete=models.PROTECT, verbose_name='Марка автомобиля')
 
     def __str__(self):
         return self.car_models
@@ -23,6 +24,7 @@ class CarModels(models.Model):
     class Meta:
         verbose_name = 'Модель автомобиля'
         verbose_name_plural = 'Модели автомобилей'
+        ordering = ['car_models']
 
 
 class WorkingShift(models.Model):
@@ -72,8 +74,8 @@ class Organization(models.Model):
 
 
 class Employees(models.Model):
+    organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация', related_name='employees')
     employees = models.CharField(max_length=255, verbose_name='Сотрудник')
-    organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация')
     position = models.CharField(max_length=255, verbose_name='Должность сотрудника')
     details = models.CharField(max_length=255, verbose_name='Контактные данные')
 
@@ -87,11 +89,11 @@ class Employees(models.Model):
 
 class Automobile(models.Model):
     car_number = models.CharField(max_length=10, unique=True, verbose_name='№ автомобиля')
-    car_mark = models.ForeignKey('CarMark', on_delete=models.PROTECT, verbose_name='Марка автомобиля')
-    car_models = models.ForeignKey('CarModels', on_delete=models.PROTECT, verbose_name='Модель автомобиля')
+    car_mark = models.ForeignKey('CarMark', on_delete=models.PROTECT, verbose_name='Марка автомобиля', related_name='car_number')
+    car_models = models.ForeignKey('CarModels', on_delete=models.PROTECT, verbose_name='Модель автомобиля', related_name='car_number')
     car_color = models.CharField(max_length=15, verbose_name='Цвет автомобиля')
     fio = models.CharField(max_length=255, verbose_name='ФИО владельца')
-    organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация')
+    organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация', related_name='car_number')
     position = models.CharField(max_length=255, verbose_name='Должность владельца', null=True)
     details = models.CharField(max_length=255, verbose_name='Контактные данные')
     working_shift = models.ForeignKey('WorkingShift', on_delete=models.PROTECT, verbose_name='Смена')
@@ -100,7 +102,7 @@ class Automobile(models.Model):
     limitation = models.DateTimeField(verbose_name='Срок')
     creation_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     author = models.ForeignKey('auth.User', on_delete=models.SET_DEFAULT, default='auth.User', verbose_name='Пользователь')
-    employees = models.ForeignKey('employees', on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник')
+    employees = models.ForeignKey('employees', on_delete=models.SET_NULL, null=True, verbose_name='Сотрудник', related_name='car_number')
     allowed = models.BooleanField(default=True, verbose_name='Разрешено')
 
     def __str__(self):
@@ -110,4 +112,5 @@ class Automobile(models.Model):
         verbose_name = 'Автомобиль'
         verbose_name_plural = 'Автомобили'
         ordering = ['car_number']
+        unique_together = ('car_mark', 'car_models')
 

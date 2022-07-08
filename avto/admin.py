@@ -10,7 +10,9 @@ class CarMarkAdmin(admin.ModelAdmin):
 
 class CarModelsAdmin(admin.ModelAdmin):
     list_display = ('car_models', 'car_mark')
-    list_display_links = ('car_models', 'car_mark')
+    list_display_links = ('car_models',)
+    list_filter = ('car_mark',)
+    search_fields = ('car_models',)
 
 
 class WorkingShiftAdmin(admin.ModelAdmin):
@@ -40,7 +42,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 class EmployeesAdmin(admin.ModelAdmin):
     list_display = ('employees', 'organization', 'position', 'details')
     list_display_links = ('organization',)
-    search_fields = ('organization',)
+    search_fields = ('employees',)
 
 
 class AutomobileAdmin(admin.ModelAdmin):
@@ -53,11 +55,6 @@ class AutomobileAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.author = request.user
         super().save_model(request, obj, form, change)
-
-    # def get_form(self, request, *args, **kwargs):
-    #     form = super(CarsAdmin, self).get_form(request, *args, **kwargs)
-    #     form.base_fields['author'].initial = request.user
-    #     return form
 
 
 admin.site.register(CarMark, CarMarkAdmin)
