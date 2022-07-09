@@ -1,7 +1,9 @@
 import datetime
 
 from .models import *
-from django.forms import ModelForm, TextInput, Select, HiddenInput
+from django import forms
+from django.forms import ModelForm, TextInput, Select, HiddenInput, ModelChoiceField
+from django.forms import modelformset_factory
 
 
 class CreateForm(ModelForm):
@@ -24,6 +26,7 @@ class CreateForm(ModelForm):
 
     class Meta:
         model = Automobile
+        car_models = forms.ModelChoiceField(queryset=CarMark.objects.all().filter(car_mark=1))
         fields = '__all__'
 
         widgets = {
@@ -68,5 +71,11 @@ class CreateForm(ModelForm):
         }
 
 
+# class CreateAvtoForm(forms.Form):
+#     car_mark = forms.ModelChoiceField(queryset=CarMark.objects.all())
+    # car_models = forms.ModelChoiceField(queryset=CarModels.objects.all().filter(car_mark=car_mark))
 
+CreateAvtoFormSet = modelformset_factory(
+    Automobile, fields=('__all__'), extra=1
+)
 

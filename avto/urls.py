@@ -7,5 +7,4 @@ from .views import *
 urlpatterns = [
     path('', AutomobileListView.as_view(), name='avto'),
     path('create/', views.create, name='create'),
-    re_path(r'^/get_car_models/$', views.get_car_models),
 ]
