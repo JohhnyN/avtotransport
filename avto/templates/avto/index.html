@@ -1,23 +1,15 @@
-{% load static %}
+{% extends 'avto/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="{% static 'avto/css/bootstrap.min.css' %}" rel="stylesheet">
-    <title>Автотранспорт</title>
-</head>
-<body>
-<div class="d-flex align-items-center text-white-50 bg-primary box-shadow mb-5">
-    <img class="mr-3" src="" alt="" width="48" height="48">
-    <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">Автотранспорт</h6>
-    </div>
-</div>
+{% block content %}
 
+<div class="container">
 
-<div class="container d-flex">
-
+    <form action="" method="get" class="">
+        <div class="input-group mb-5">
+            <input type="text" class="form-control form-control-lg" placeholder="Введите гос номер" name="q">
+            <button type="submit" class="btn-primary"><i class="me-2"></i> Поиск</button>
+        </div>
+    </form>
 
     <table class="table table-hover table-bordered border-dark">
         <thead>
@@ -25,30 +17,32 @@
             {% filter upper %}
             <th scope="col">Гос номер</th>
             <th scope="col">Марка</th>
-            <th scope="col">Модель</th>
             <th scope="col">Цвет</th>
             <th scope="col">Зона</th>
             <th scope="col">Доступ</th>
+            <th scope="col">ФИО владельца</th>
+            <th scope="col">Организация</th>
+            <th scope="col">Контактные данные</th>
             {% endfilter %}
         </tr>
         </thead>
         <tbody>
         {% for car in object_list %}
         <tr>
-            {% filter upper %}<th>{{ car.car_number }}</th>{% endfilter %}
+            {% filter upper %}
+            <th>{{ car.car_number }}<a href=""></a></th>
+            {% endfilter %}
             <td>{{ car.car_mark }}</td>
-            <td>{{ car.car_models }}</td>
             <td>{{ car.car_color }}</td>
             <td>{{ car.zone }}</td>
             <td>{{ car.type }}</td>
+            <td>{{ car.fio }}</td>
+            <td>{{ car.organization }}</td>
+            <td>{{ car.details }}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <p>ABJ</p>
 </div>
 
-
-</body>
-</html>
+{% endblock %}
