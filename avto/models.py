@@ -50,6 +50,7 @@ class Type(models.Model):
 
 class Organization(models.Model):
     organization = models.CharField(max_length=255, unique=True, verbose_name='Организация')
+    rental_period = models.DateTimeField(verbose_name='Срок аренды', blank=True, null=True)
 
     def __str__(self):
         return self.organization
@@ -65,6 +66,8 @@ class Employees(models.Model):
     employees = models.CharField(max_length=255, verbose_name='Сотрудник')
     position = models.CharField(max_length=255, verbose_name='Должность сотрудника')
     details = models.CharField(max_length=255, verbose_name='Контактные данные')
+    note = models.TextField(blank=True, verbose_name='Примечание')
+    rental_period = models.DateTimeField(verbose_name='Срок аренды', blank=True, null=True)
 
     def __str__(self):
         return self.employees
@@ -90,6 +93,7 @@ class Automobile(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.SET_DEFAULT, default='auth.User', verbose_name='Пользователь')
     employees = models.ForeignKey('employees', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Сотрудник', related_name='car_number')
     allowed = models.BooleanField(default=True, verbose_name='Разрешено')
+    note = models.TextField(blank=True, verbose_name='Примечание')
 
     def __str__(self):
         return self.car_number

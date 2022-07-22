@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(CarMark)
 class CarMarkAdmin(admin.ModelAdmin):
-    list_display = ('id', 'car_mark',)
+    list_display = ('car_mark',)
     list_display_links = ('car_mark',)
     search_fields = ('car_mark',)
 
@@ -32,21 +32,21 @@ class TypeAdmin(admin.ModelAdmin):
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'organization',)
+    list_display = ('organization', 'rental_period')
     list_display_links = ('organization',)
     search_fields = ('organization',)
 
 
 @admin.register(Employees)
 class EmployeesAdmin(admin.ModelAdmin):
-    list_display = ('employees', 'organization', 'position', 'details')
-    list_display_links = ('organization',)
+    list_display = ('employees', 'organization', 'position', 'details', 'rental_period')
+    list_display_links = ('employees', 'organization',)
     search_fields = ('employees',)
 
 
 @admin.register(Automobile)
 class AutomobileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'car_number', 'car_mark', 'fio', 'organization', 'working_shift', 'zone', 'type', 'limitation', 'author', 'allowed')
+    list_display = ('car_number', 'car_mark', 'fio', 'organization', 'working_shift', 'zone', 'type', 'limitation', 'author', 'allowed')
     list_display_links = ('car_number',)
     list_editable = ('allowed',)
     search_fields = ('car_number', 'fio',)

@@ -1,14 +1,11 @@
-import json
-
 from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 from .forms import *
 from django.db.models import Q
 
@@ -95,3 +92,8 @@ class UpdatePassword(LoginRequiredMixin, PasswordChangeView):
 
 def password_change_done(request):
     return render(request, 'avto/password_change_done.html')
+
+
+def deli():
+    record = Organization.objects.filter(organization=119)
+    record.delete()
