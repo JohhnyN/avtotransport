@@ -62,7 +62,7 @@ class Organization(models.Model):
 
 
 class Employees(models.Model):
-    organization = models.ForeignKey('Organization', on_delete=models.PROTECT, verbose_name='Организация', related_name='employees')
+    organization = models.ForeignKey('Organization', on_delete=models.CASCADE, verbose_name='Организация', related_name='employees')
     employees = models.CharField(max_length=255, verbose_name='Сотрудник')
     position = models.CharField(max_length=255, verbose_name='Должность сотрудника')
     details = models.CharField(max_length=255, verbose_name='Контактные данные')

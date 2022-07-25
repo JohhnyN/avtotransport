@@ -94,6 +94,5 @@ def password_change_done(request):
     return render(request, 'avto/password_change_done.html')
 
 
-def deli():
-    record = Organization.objects.filter(organization=119)
-    record.delete()
+
+
