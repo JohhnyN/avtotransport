@@ -1,5 +1,16 @@
+import tablib
 from django.contrib import admin
+from import_export import resources
+from django.apps import apps
+from import_export.admin import ImportExportModelAdmin
+
 from .models import *
+
+
+class EmployyesResourse(resources.ModelResource):
+    class Meta:
+        model = Employees
+        fields = ('organization__organization', 'employees',  'position', 'details', 'note', 'rental_period')
 
 
 @admin.register(CarMark)
@@ -24,28 +35,29 @@ class ZoneAdmin(admin.ModelAdmin):
 
 
 @admin.register(Type)
-class TypeAdmin(admin.ModelAdmin):
+class TypeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('type',)
     list_display_links = ('type',)
     search_fields = ('type',)
 
 
 @admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
+class OrganizationAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('organization', 'rental_period')
     list_display_links = ('organization',)
     search_fields = ('organization',)
 
 
 @admin.register(Employees)
-class EmployeesAdmin(admin.ModelAdmin):
+class EmployeesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('employees', 'organization', 'position', 'details', 'rental_period')
     list_display_links = ('employees', 'organization',)
     search_fields = ('employees',)
+    resource_class = EmployyesResourse
 
 
 @admin.register(Automobile)
-class AutomobileAdmin(admin.ModelAdmin):
+class AutomobileAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('car_number', 'car_mark', 'fio', 'organization', 'working_shift', 'zone', 'type', 'limitation', 'author', 'allowed')
     list_display_links = ('car_number',)
     list_editable = ('allowed',)

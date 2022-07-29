@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'debug_toolbar',
+    'import_export',
     'avto.apps.AvtoConfig',
 ]
 
@@ -127,4 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
      '127.0.0.1',
  ]
+
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = ''
 
